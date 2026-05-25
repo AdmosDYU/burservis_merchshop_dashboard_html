@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Корпоративный мерчшоп — материалы для финансового отдела</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F5F4F0;color:#1a1a18;min-height:100vh;padding:2rem 1rem}
+.container{max-width:820px;margin:0 auto}
+.header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem}
+.header-label{font-size:12px;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.header-title{font-size:22px;font-weight:500;color:#1a1a18}
+.header-sub{font-size:13px;color:#5F5E5A;margin-top:4px}
+.badges{display:flex;gap:6px;padding-top:4px}
+.nav{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+.nav-btn{padding:7px 16px;font-size:13px;border:0.5px solid #B4B2A9;border-radius:8px;background:#fff;color:#5F5E5A;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:#F1EFE8;color:#1a1a18}
+.nav-btn.active{background:#F1EFE8;color:#1a1a18;border-color:#888780;font-weight:500}
+.nav-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.screen{display:none}.screen.active{display:block}
+.card{background:#fff;border:0.5px solid #D3D1C7;border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px}
+.card-accent-blue{border-left:3px solid #185FA5;border-radius:0 12px 12px 0}
+.card-accent-teal{border-left:3px solid #0F6E56;border-radius:0 12px 12px 0}
+.card-accent-amber{border-left:3px solid #BA7517;border-radius:0 12px 12px 0}
+.label{font-size:11px;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.title{font-size:18px;font-weight:500;color:#1a1a18;margin-bottom:.5rem}
+.body{font-size:14px;color:#5F5E5A;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:8px;font-weight:500}
+.badge svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.badge-blue{background:#E6F1FB;color:#0C447C}
+.badge-teal{background:#E1F5EE;color:#085041}
+.badge-amber{background:#FAEEDA;color:#633806}
+.badge-red{background:#FCEBEB;color:#791F1F}
+.badge-green{background:#EAF3DE;color:#27500A}
+.badge-gray{background:#F1EFE8;color:#444441}
+.badge-purple{background:#EEEDFE;color:#3C3489}
+.divider{height:0.5px;background:#D3D1C7;margin:1rem 0}
+.criteria-row{display:grid;grid-template-columns:190px 1fr 1fr;gap:8px;align-items:center;padding:9px 0;border-bottom:0.5px solid #D3D1C7;font-size:13px}
+.criteria-row:last-child{border-bottom:none}
+.criteria-head{display:grid;grid-template-columns:190px 1fr 1fr;gap:8px;padding:6px 0 10px;border-bottom:1px solid #B4B2A9;font-size:13px;font-weight:500}
+.criteria-label{color:#5F5E5A;font-size:13px}
+.dot-row{display:flex;gap:3px}
+.dot{width:10px;height:10px;border-radius:50%;background:#D3D1C7}
+.dot.on-blue{background:#185FA5}
+.dot.on-teal{background:#0F6E56}
+.section-head{font-size:15px;font-weight:500;color:#1a1a18;margin:1.25rem 0 .75rem}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.pc-block{background:#F5F4F0;border-radius:8px;padding:10px 12px}
+.pc-title{font-size:12px;font-weight:500;margin-bottom:6px}
+.pc-item{font-size:12px;color:#5F5E5A;line-height:1.5;padding:3px 0;display:flex;gap:6px;align-items:flex-start}
+.pc-item svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px}
+.tag-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.nav-btns{display:flex;gap:8px;margin-top:1.5rem}
+.btn{padding:8px 20px;font-size:13px;font-weight:500;border:0.5px solid #B4B2A9;border-radius:8px;background:#fff;color:#1a1a18;cursor:pointer;transition:all .15s}
+.btn:hover{background:#F1EFE8}
+.model-title{font-size:15px;font-weight:500;margin-bottom:6px;color:#1a1a18}
+.conclusion-card{background:#F5F4F0;border-radius:12px;border:0.5px solid #D3D1C7;padding:1rem 1.25rem;margin-top:4px}
+.step-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;margin-top:1px}
+.step-num-blue{background:#E6F1FB;color:#0C447C}
+.step-num-teal{background:#E1F5EE;color:#085041}
+.step-text{font-size:13px;color:#5F5E5A;line-height:1.55}
+.step-text strong{color:#1a1a18;font-weight:500}
+.doc-row{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #D3D1C7;font-size:13px}
+.doc-row:last-child{border-bottom:none}
+.doc-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px}
+.doc-label{font-weight:500;color:#1a1a18;margin-bottom:2px}
+.doc-desc{color:#5F5E5A;font-size:12px;line-height:1.5}
+.highlight-box{border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;line-height:1.6}
+.highlight-blue{background:#E6F1FB;color:#0C447C}
+.highlight-teal{background:#E1F5EE;color:#085041}
+.highlight-amber{background:#FAEEDA;color:#633806}
+.from-hr-box{background:#fff;border:0.5px solid #D3D1C7;border-radius:12px;padding:14px 18px;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start}
+.from-hr-icon{width:36px;height:36px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.from-hr-icon svg{width:18px;height:18px;stroke:#185FA5;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.from-hr-text{font-size:13px;color:#5F5E5A;line-height:1.6}
+.from-hr-text strong{color:#1a1a18;font-weight:500}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div>
+    <div class="header-label">Бурсервис — внутренние материалы</div>
+    <div class="header-title">Корпоративный мерчшоп: две модели запуска</div>
+    <div class="header-sub">Материалы подготовлены HR-отделом совместно с партнёром ADMOS для обсуждения с финансовым и налоговым отделами</div>
+  </div>
+  <div class="badges">
+    <span class="badge badge-blue">Модель 1 — Публичный мерчшоп</span>
+    <span class="badge badge-teal">Модель 2 — HR-бренд сервис</span>
+  </div>
+</div>
+
+<!-- Плашка от HR -->
+<div class="from-hr-box">
+  <div class="from-hr-icon">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </div>
+  <div class="from-hr-text">
+    <strong>От HR-отдела (C&amp;B) коллегам из финансового и налогового отделов.</strong><br>
+    Мы изучили два варианта запуска корпоративного мерчшопа вместе с нашим партнёром ADMOS. Оба варианта изначально разрабатывались с учётом корректности налогового оформления — принципиальный момент в обоих случаях: мерч не передаётся сотруднику напрямую от компании. Просим ознакомиться с материалами и обсудить, какая модель лучше вписывается в нашу учётную политику.
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="show(0)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    Контекст
+  </button>
+  <button class="nav-btn" onclick="show(1)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+    Сравнение
+  </button>
+  <button class="nav-btn" onclick="show(2)">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Механика моделей
+  </button>
+  <button class="nav-btn" onclick="show(3)">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Документооборот
+  </button>
+  <button class="nav-btn" onclick="show(4)">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Налоговые вопросы
+  </button>
+</div>
+
+<!-- SCREEN 0: Контекст -->
+<div class="screen active" id="s0">
+  <div class="card">
+    <div class="label">Задача</div>
+    <div class="title">Запуск корпоративного мерчшопа для сотрудников</div>
+    <div class="body">HR-отдел прорабатывает запуск корпоративного мерчшопа как инструмент развития бренда работодателя и вовлечённости сотрудников. Совместно с партнёром ADMOS мы рассмотрели два варианта, каждый из которых имеет чётко выстроенную правовую и налоговую конструкцию.</div>
+  </div>
+
+  <div class="card" style="border-left:3px solid #BA7517;border-radius:0 12px 12px 0">
+    <div class="label" style="color:#BA7517">Ключевой принцип обеих моделей</div>
+    <div class="model-title">В обоих вариантах мерч не передаётся сотруднику напрямую от компании</div>
+    <div class="body">Это принципиальный момент для налоговой квалификации: в обоих случаях механика сделки выстроена так, что логика «работодатель выдал — значит натуральный доход» не применима. Именно поэтому вопрос о начислении НДФЛ и страховых взносов по зарплатной схеме здесь не возникает.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-accent-blue">
+      <div class="label" style="color:#185FA5">Модель 1 — суть</div>
+      <div class="model-title">Публичный розничный мерчшоп</div>
+      <div class="body">Сотрудник выступает обычным покупателем интернет-магазина: платит сам, получает кассовый чек. Компания как владелец продукции предоставляет скидку в рамках акции. Продавец — ADMOS.</div>
+    </div>
+    <div class="card card-accent-teal">
+      <div class="label" style="color:#0F6E56">Модель 2 — суть</div>
+      <div class="model-title">Комплексный HR-бренд сервис</div>
+      <div class="body">Товар в договоре не фигурирует. Компания приобретает услугу по продвижению HR-бренда. Мерч и сертификаты — элемент сервиса, расход проходит как маркетинговый.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Что предлагаем обсудить</div>
+    <div class="body" style="margin-bottom:10px">Просим коллег из финансового и налогового отделов ознакомиться с механикой и документальным оформлением каждой модели и совместно определить, какой вариант лучше соответствует нашей учётной политике и внутренним требованиям.</div>
+    <div class="tag-list">
+      <span class="badge badge-gray"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Механика каждой модели</span>
+      <span class="badge badge-gray"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Документальное оформление</span>
+      <span class="badge badge-gray"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Налоговая квалификация операций</span>
+      <span class="badge badge-gray"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Выбор подходящей модели</span>
+    </div>
+  </div>
+  <div class="nav-btns"><button class="btn" onclick="show(1)">Перейти к сравнению →</button></div>
+</div>
+
+<!-- SCREEN 1: Сравнение -->
+<div class="screen" id="s1">
+  <div class="card">
+    <div class="label">Обзор</div>
+    <div class="title">Сравнение по ключевым параметрам</div>
+    <div style="margin-top:14px">
+      <div class="criteria-head">
+        <div>Параметр</div>
+        <div style="color:#185FA5">Модель 1 — Публичный мерчшоп</div>
+        <div style="color:#0F6E56">Модель 2 — HR-бренд сервис</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Природа сделки</div>
+        <div><span class="badge badge-blue">Розничная продажа</span></div>
+        <div><span class="badge badge-teal">Оказание услуг</span></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Кто продавец / исполнитель</div>
+        <div style="font-size:13px;color:#1a1a18">ADMOS (интернет-магазин)</div>
+        <div style="font-size:13px;color:#1a1a18">ADMOS (исполнитель услуг)</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Роль нашей компании</div>
+        <div style="font-size:13px;color:#1a1a18">Комитент, владелец продукции</div>
+        <div style="font-size:13px;color:#1a1a18">Заказчик HR-сервиса</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Роль сотрудника</div>
+        <div style="font-size:13px;color:#1a1a18">Розничный покупатель</div>
+        <div style="font-size:13px;color:#1a1a18">Участник HR-программы</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Товар в договоре</div>
+        <div><span class="badge badge-blue">Есть (реализация через магазин)</span></div>
+        <div><span class="badge badge-teal">Нет (только услуги)</span></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Доступ в мерчшоп</div>
+        <div style="font-size:13px;color:#1a1a18">Публичный — любой пользователь</div>
+        <div style="font-size:13px;color:#1a1a18">По сертификатам компании</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Оплата от сотрудника</div>
+        <div><span class="badge badge-blue">Да — личная карта, чек</span></div>
+        <div><span class="badge badge-teal">По сертификату — без оплаты</span></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Скидка / субсидия</div>
+        <div style="font-size:13px;color:#1a1a18">Промокод как акция владельца</div>
+        <div style="font-size:13px;color:#1a1a18">Сертификаты ADMOS компании</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Тип расхода компании</div>
+        <div><span class="badge badge-gray">Комиссионное вознаграждение</span></div>
+        <div><span class="badge badge-purple">Маркетинг / реклама HR-бренда</span></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Закрывающий документ</div>
+        <div style="font-size:13px;color:#1a1a18">Отчёт комиссионера</div>
+        <div style="font-size:13px;color:#1a1a18">Акт + детальный отчёт об услугах</div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Масштабируемость</div>
+        <div><div class="dot-row"><div class="dot on-blue"></div><div class="dot on-blue"></div><div class="dot on-blue"></div><div class="dot on-blue"></div><div class="dot on-blue"></div></div></div>
+        <div><div class="dot-row"><div class="dot on-teal"></div><div class="dot on-teal"></div><div class="dot on-teal"></div><div class="dot"></div><div class="dot"></div></div></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Гибкость под HR-задачи</div>
+        <div><div class="dot-row"><div class="dot on-blue"></div><div class="dot on-blue"></div><div class="dot on-blue"></div><div class="dot"></div><div class="dot"></div></div></div>
+        <div><div class="dot-row"><div class="dot on-teal"></div><div class="dot on-teal"></div><div class="dot on-teal"></div><div class="dot on-teal"></div><div class="dot on-teal"></div></div></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Сложность запуска</div>
+        <div><span class="badge badge-green">Ниже</span></div>
+        <div><span class="badge badge-amber">Выше</span></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-label">Привычность конструкции</div>
+        <div><span class="badge badge-green">Стандартная розничная схема</span></div>
+        <div><span class="badge badge-amber">Требует дополнительного разбора</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="show(0)">← Назад</button>
+    <button class="btn" onclick="show(2)">Механика моделей →</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: Механика -->
+<div class="screen" id="s2">
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid #185FA5">
+      <div style="margin-bottom:12px"><span class="badge badge-blue">Модель 1 — Публичный мерчшоп</span></div>
+      <div style="margin-bottom:14px">
+        <div class="step-row">
+          <div class="step-num step-num-blue">1</div>
+          <div class="step-text"><strong>Наша компания передаёт продукцию</strong> ADMOS по договору комиссии. ADMOS выступает комиссионером — продаёт товар от своего имени, но за счёт компании.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-blue">2</div>
+          <div class="step-text"><strong>ADMOS открывает публичный интернет-магазин</strong> — мерчшоп доступен любому пользователю в интернете, не только нашим сотрудникам.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-blue">3</div>
+          <div class="step-text"><strong>Компания проводит акцию</strong> — как владелец продукции имеет право предоставить скидку. Сотрудники получают промокод на скидку в рамках этой акции.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-blue">4</div>
+          <div class="step-text"><strong>Сотрудник — обычный покупатель:</strong> заходит в магазин, выбирает товар, платит своей картой, получает кассовый чек. Сделка заключается между ним и ADMOS.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-blue">5</div>
+          <div class="step-text"><strong>ККТ применяет ADMOS</strong> как продавец. Компания получает ежемесячный отчёт комиссионера о продажах.</div>
+        </div>
+      </div>
+      <div class="highlight-box highlight-blue">
+        <strong>Прецеденты:</strong> по этой модели успешно работают уже 3+ года мерчшоп сети Чижик (Х5 Group) и Сбершоп.
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0F6E56">
+      <div style="margin-bottom:12px"><span class="badge badge-teal">Модель 2 — HR-бренд сервис</span></div>
+      <div style="margin-bottom:14px">
+        <div class="step-row">
+          <div class="step-num step-num-teal">1</div>
+          <div class="step-text"><strong>Заключается договор на комплекс услуг</strong> по продвижению HR-бренда работодателя. Товар в предмете договора не фигурирует.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-teal">2</div>
+          <div class="step-text"><strong>ADMOS запускает мерчшоп и производит продукцию</strong> в рамках исполнения услуги по созданию и сопровождению HR-бренд программы.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-teal">3</div>
+          <div class="step-text"><strong>ADMOS предоставляет компании сертификаты</strong> — неперсонализированные, для использования в продвижении HR-бренда на мероприятиях и в коммуникациях.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-teal">4</div>
+          <div class="step-text"><strong>Компания самостоятельно распространяет сертификаты</strong> на HR-мероприятиях, ярмарках вакансий, в рекламных кампаниях — в целях продвижения бренда работодателя.</div>
+        </div>
+        <div class="step-row">
+          <div class="step-num step-num-teal">5</div>
+          <div class="step-text"><strong>ADMOS ежемесячно предоставляет отчёт и акт</strong> на весь комплекс оказанных услуг. Компания списывает расходы как маркетинговые и рекламные.</div>
+        </div>
+      </div>
+      <div class="highlight-box highlight-teal">
+        <strong>Логика расхода:</strong> компания платит не за мерч, а за услугу по продвижению HR-бренда — отдельная статья маркетингового бюджета.
+      </div>
+    </div>
+  </div>
+
+  <div class="conclusion-card">
+    <div class="label">Общий принцип обеих моделей</div>
+    <div class="body" style="margin-top:4px">Ни в одной из моделей компания не передаёт мерч сотруднику напрямую как часть трудовых отношений. Это принципиально меняет налоговую квалификацию операции и снимает вопрос о натуральном доходе сотрудника.</div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="show(1)">← Назад</button>
+    <button class="btn" onclick="show(3)">Документооборот →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: Документооборот -->
+<div class="screen" id="s3">
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid #185FA5">
+      <div style="margin-bottom:12px"><span class="badge badge-blue">Модель 1 — документы</span></div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#185FA5"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Договор комиссии / агентский договор</div><div class="doc-desc">Наша компания (комитент) передаёт продукцию ADMOS (комиссионер) для реализации. ADMOS продаёт от своего имени, но за счёт компании.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#185FA5"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Акт приёма-передачи товара</div><div class="doc-desc">Фиксирует передачу продукции от компании к ADMOS на реализацию. Товар остаётся собственностью компании до момента продажи.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#185FA5"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div><div class="doc-label">Кассовый чек покупателю</div><div class="doc-desc">ADMOS пробивает чек каждому покупателю как продавец. ККТ — на стороне ADMOS. У компании нет кассовых обязательств по этой операции.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#185FA5"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div><div class="doc-label">Ежемесячный отчёт комиссионера</div><div class="doc-desc">ADMOS отчитывается о продажах: количество, суммы, промокоды, остатки. На основе отчёта компания признаёт выручку и комиссионное вознаграждение.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#185FA5"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Счёт-фактура на комиссионное вознаграждение</div><div class="doc-desc">ADMOS выставляет счёт-фактуру на своё вознаграждение. НДС — только с суммы комиссии, не со всей выручки.</div></div>
+      </div>
+      <div class="highlight-box highlight-blue" style="margin-top:12px">
+        Сотрудник в документообороте компании <strong>не упоминается.</strong> Никакого персонального учёта, никаких расчётных ведомостей.
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid #0F6E56">
+      <div style="margin-bottom:12px"><span class="badge badge-teal">Модель 2 — документы</span></div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#0F6E56"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Договор на комплекс маркетинговых услуг</div><div class="doc-desc">Предмет — услуги по разработке, запуску и сопровождению программы продвижения HR-бренда работодателя. Товар в договоре не упоминается.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#0F6E56"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Техническое задание / бриф</div><div class="doc-desc">Описывает задачи программы: целевая аудитория, каналы продвижения, KPI по охватам и вовлечённости, форматы HR-мероприятий.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#0F6E56"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div><div class="doc-label">Ежемесячный отчёт об оказанных услугах</div><div class="doc-desc">Детальная расшифровка: разработка, производство продукции мерчшопа, сопровождение, выданные сертификаты, данные по активации, аналитика продаж.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#0F6E56"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Акт об оказании услуг</div><div class="doc-desc">Подписывается ежемесячно вместе с отчётом. Является основанием для признания расхода компанией как маркетинговых / рекламных затрат.</div></div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon" style="color:#0F6E56"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="doc-label">Счёт-фактура на весь комплекс услуг</div><div class="doc-desc">НДС со всей стоимости услуги. Компания принимает к вычету в стандартном порядке как по любому маркетинговому подрядчику.</div></div>
+      </div>
+      <div class="highlight-box highlight-teal" style="margin-top:12px">
+        Ключевое требование: <strong>отчёт должен раскрывать содержание услуги,</strong> а не просто фиксировать итоговую сумму. Это основа подтверждения реальности и обоснованности расходов.
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn" onclick="show(2)">← Назад</button>
+    <button class="btn" onclick="show(4)">Налоговые вопросы →</button>
+  </div>
+</div>
+
+<!-- SCREEN 4: Налоговые вопросы -->
+<div class="screen" id="s4">
+  <div class="card">
+    <div class="label">Для финансового и налогового отдела</div>
+    <div class="title">Налоговая квалификация операций по каждой модели</div>
+    <div class="body" style="margin-top:4px">Ниже — разбор ключевого вопроса: возникает ли у сотрудника налогооблагаемый доход и есть ли основания для начисления страховых взносов. В обоих случаях ответ отрицательный — по разным правовым основаниям.</div>
+  </div>
+
+  <div class="section-head">Модель 1 — налоговый разбор</div>
+  <div class="card card-accent-blue">
+    <div class="label" style="color:#185FA5">Публичный мерчшоп</div>
+    <div style="margin-top:10px">
+      <div class="step-row">
+        <div class="step-num step-num-blue">1</div>
+        <div class="step-text"><strong>Нет прямой передачи от работодателя.</strong> Компания не выдаёт мерч сотрудникам. Сотрудник совершает самостоятельную розничную покупку в публичном интернет-магазине ADMOS, платит своей картой и получает кассовый чек.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-blue">2</div>
+        <div class="step-text"><strong>Скидка — это акция, а не льгота от работодателя.</strong> Компания как владелец продукции предоставляет скидку в рамках промо-акции. Промокод публичный — не персонализирован под конкретного сотрудника.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-blue">3</div>
+        <div class="step-text"><strong>Продавец — ADMOS, не работодатель.</strong> Стороны сделки — физическое лицо (покупатель) и ADMOS (продавец). Компания в этой сделке не является стороной договора купли-продажи.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-blue">4</div>
+        <div class="step-text"><strong>Подтверждённый рыночный прецедент.</strong> По идентичной схеме 3+ года работают мерчшоп Чижик (Х5 Group) и Сбершоп — крупные корпоративные структуры с высоким уровнем налогового контроля.</div>
+      </div>
+    </div>
+    <div class="tag-list" style="margin-top:10px">
+      <span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>НДФЛ у сотрудника — не возникает</span>
+      <span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Страховые взносы — не начисляются</span>
+      <span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>ККТ — на стороне ADMOS</span>
+      <span class="badge badge-blue">Расход компании — комиссионное вознаграждение</span>
+    </div>
+  </div>
+
+  <div class="section-head">Модель 2 — налоговый разбор</div>
+  <div class="card card-accent-teal">
+    <div class="label" style="color:#0F6E56">HR-бренд сервис</div>
+    <div style="margin-top:10px">
+      <div class="step-row">
+        <div class="step-num step-num-teal">1</div>
+        <div class="step-text"><strong>В договоре нет товара.</strong> Предмет договора — комплекс услуг по продвижению HR-бренда. Мерч — один из инструментов сервиса, а не самостоятельный объект сделки.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-teal">2</div>
+        <div class="step-text"><strong>Сертификаты — инструмент рекламы, не подарок сотруднику.</strong> Компания получает неперсонализированные сертификаты и использует их для продвижения HR-бренда: на ярмарках вакансий, в рекламных кампаниях, на профессиональных мероприятиях.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-teal">3</div>
+        <div class="step-text"><strong>Расход — маркетинговый, не зарплатный.</strong> Компания списывает затраты как расходы на рекламу и продвижение HR-бренда работодателя в соответствии со ст. 264 НК РФ. Основание — акт и детальный отчёт об оказанных услугах.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num step-num-teal">4</div>
+        <div class="step-text"><strong>Нет связи «сотрудник — вознаграждение».</strong> Сертификаты неперсонализированы, распространяются публично в рамках HR-коммуникаций. Квалифицировать как выплату конкретному физическому лицу в рамках трудовых отношений не представляется возможным.</div>
+      </div>
+    </div>
+    <div class="tag-list" style="margin-top:10px">
+      <span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>НДФЛ — не возникает (нет персонифицированной выплаты)</span>
+      <span class="badge badge-green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Страховые взносы — не начисляются</span>
+      <span class="badge badge-purple">Расход — маркетинг / реклама HR-бренда (ст. 264 НК РФ)</span>
+    </div>
+    <div class="highlight-box highlight-amber" style="margin-top:12px">
+      <strong>Важно для подтверждения расходов:</strong> ADMOS предоставляет детальный ежемесячный отчёт, раскрывающий содержание каждой составляющей услуги. Это ключевой документ для обоснования расходов перед налоговым органом.
+    </div>
+  </div>
+
+  <div class="conclusion-card">
+    <div class="label">Следующий шаг</div>
+    <div class="body" style="margin-top:4px">Будем рады провести совместную встречу HR, финансового и налогового отделов вместе с представителями ADMOS — для детального разбора выбранной модели, обсуждения структуры договора и документооборота, а также ответов на любые вопросы по налоговой квалификации операций.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn" onclick="show(3)">← Назад</button>
+  </div>
+</div>
+
+</div>
+<script>
+function show(i){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('s'+i).classList.add('active');
+  document.querySelectorAll('.nav-btn')[i].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function downloadFile(){
+  var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='merchshop_dashboard_finance.html';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+}
+window.addEventListener('load',function(){
+  var btn=document.createElement('button');
+  btn.textContent='Скачать файл';
+  btn.onclick=downloadFile;
+  btn.style.cssText='position:fixed;bottom:20px;right:20px;padding:10px 20px;background:#185FA5;color:#fff;border-radius:8px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;border:none;cursor:pointer;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.18)';
+  document.body.appendChild(btn);
+});
+</script>
+</body>
+</html>
